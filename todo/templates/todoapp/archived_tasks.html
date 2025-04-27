@@ -1,0 +1,25 @@
+<!-- tasks/templates/tasks/archived_tasks.html -->
+
+{% extends 'todoapp/base.html' %}
+
+{% block title %}Архив задач{% endblock %}
+
+{% block content %}
+
+<h1>Архив задач</h1>
+
+{% if tasks %}
+    <div class="list-group">
+        {% for task in tasks %}
+            <div class="list-group-item">
+                <h5>{{ task.title }}</h5>
+                <p>{{ task.description }}</p>
+                <p><strong>Дедлайн:</strong> {{ task.deadline|date:"d.m.Y H:i" }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Архив пуст.</p>
+{% endif %}
+
+{% endblock %}

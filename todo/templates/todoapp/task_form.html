@@ -1,0 +1,17 @@
+<!-- tasks/templates/tasks/task_form.html -->
+
+{% extends 'todoapp/base.html' %}
+
+{% block title %}Новая задача{% endblock %}
+
+{% block content %}
+
+<h1>{% if form.instance.pk %}Редактировать{% else %}Создать{% endif %} задачу</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Сохранить</button>
+</form>
+
+{% endblock %}
