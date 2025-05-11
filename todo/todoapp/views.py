@@ -8,6 +8,9 @@ from django.utils import timezone
 from datetime import timedelta
 import json
 from django.utils.timezone import now
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 
 # Регистрация пользователя
 def register_view(request):
@@ -103,6 +106,28 @@ def task_update(request, pk):
     else:
         form = TaskForm(instance=task)
     return render(request, 'todoapp/task_form.html', {'form': form})
+
+# Статискика по задачам
+@login_required
+def task_stats(request):
+    user = request.user
+    tasks = Task.objects.filter(user=user, is_archived=False)
+
+    total = tasks.count()
+    completed = tasks.filter(completed=True).count()
+    important = tasks.filter(important=True).count()
+    overdue = tasks.filter(deadline__lt=timezone.now(), completed=False).count()
+    upcoming = tasks.filter(deadline__gte=timezone.now(), completed=False).order_by('deadline')[:5]
+
+    context = {
+        'total': total,
+        'completed': completed,
+        'important': important,
+        'overdue': overdue,
+        'upcoming': upcoming,
+    }
+
+    return render(request, 'todoapp/task_stats.html', context)
 
 # Удаление задачи
 @login_required

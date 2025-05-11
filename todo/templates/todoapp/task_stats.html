@@ -1,0 +1,40 @@
+{% extends 'todoapp/base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="mb-4">📊 Статистика задач</h2>
+
+    <ul class="list-group mb-4">
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Всего задач:</span>
+            <strong>{{ total }}</strong>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Выполнено:</span>
+            <strong>{{ completed }}</strong>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Важно:</span>
+            <strong>{{ important }}</strong>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Просрочено:</span>
+            <strong class="text-danger">{{ overdue }}</strong>
+        </li>
+    </ul>
+
+    <h5>⏱ Ближайшие дедлайны:</h5>
+    {% if upcoming %}
+        <ul class="list-group">
+            {% for task in upcoming %}
+                <li class="list-group-item">
+                    {{ task.title }} — <small>{{ task.deadline|date:"d.m.Y H:i" }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет предстоящих задач.</p>
+    {% endif %}
+</div>
+{% endblock %}
