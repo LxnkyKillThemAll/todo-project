@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('todoapp.urls')),  # подключаем наше приложение
+    path('', include('todoapp.urls')),
+    
 ]
 
 if settings.DEBUG:

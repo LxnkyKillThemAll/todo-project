@@ -1,0 +1,60 @@
+body {
+    background: url('/static/todoapp/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px 30px;
+    border-bottom: 1px solid #ccc;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.main-container {
+    max-width: 90%;
+    margin: 40px auto;
+    background-color: rgba(255, 255, 255, 0.50);
+    padding: 30px;
+    border-radius: 12px;
+    -webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.search-box {
+    margin-bottom: 20px;
+}
+
+.delete {
+    margin-left: 1050px;
+}

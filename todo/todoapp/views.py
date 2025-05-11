@@ -7,6 +7,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import Task
 from .forms import TaskForm
 from django.utils import timezone
+from datetime import timedelta
+import json
+from django.utils.timezone import now
 
 # Регистрация пользователя
 def register_view(request):
@@ -56,9 +59,25 @@ def task_list(request):
     # Поиск
     query = request.GET.get('q')
     if query:
-        tasks = tasks.filter(title__icontains=query)  # Поиск по заголовку
+        tasks = tasks.filter(title__icontains=query)
 
-    return render(request, 'todoapp/task_list.html', {'tasks': tasks})
+    now = timezone.now()
+    soon = now + timedelta(hours=24)
+
+    urgent_list = []
+    for task in tasks:
+        task.is_urgent = False
+        if task.deadline and now < task.deadline <= now + timedelta(hours=24) and not task.completed:
+            task.is_urgent = True
+            urgent_list.append({
+                'title': task.title,
+                'due': task.deadline.strftime("%d.%m.%Y %H:%M")
+            })
+    
+
+    return render(request, 'todoapp/task_list.html',
+                   {'tasks': tasks,
+                    'urgent_tasks': json.dumps(urgent_list, ensure_ascii=False)})
 
 # Создание задачи
 @login_required
