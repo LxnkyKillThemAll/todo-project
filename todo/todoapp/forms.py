@@ -1,7 +1,16 @@
 from django import forms
 from .models import Task
+from django.contrib.auth.models import User
 
 class TaskForm(forms.ModelForm):
+    
+    shared_with = forms.ModelMultipleChoiceField(
+        queryset=User.objects.all(),
+        
+        required=False,
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'})
+    )
+
     class Meta:
         model = Task
         fields = ['title', 'description', 'completed', 'important', 'image', 'deadline']

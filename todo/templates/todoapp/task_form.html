@@ -8,6 +8,13 @@
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    {% if task.shared_with.all %}
+        <p>🔗 Поделено с:
+            {% for u in task.shared_with.all %}
+            {{ u.username }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+    {% endif %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-success">Сохранить</button>
 </form>

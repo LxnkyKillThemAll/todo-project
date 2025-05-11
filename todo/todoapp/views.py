@@ -11,6 +11,7 @@ from django.utils.timezone import now
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
+from django.db.models import Q
 
 # Регистрация пользователя
 def register_view(request):
@@ -56,6 +57,11 @@ def task_list(request):
 
     # Обновляем список после архивации
     tasks = Task.objects.filter(user=request.user, is_archived=False).order_by('-important', 'completed', '-deadline')
+
+    tasks = Task.objects.filter(
+        Q(user=request.user) | Q(shared_with=request.user),
+        is_archived=False).distinct()
+
 
     # Поиск
     query = request.GET.get('q')
