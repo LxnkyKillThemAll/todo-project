@@ -1,5 +1,3 @@
-# tasks/views.py
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
@@ -54,7 +52,7 @@ def task_list(request):
             task.save()
 
     # Обновляем список после архивации
-    tasks = Task.objects.filter(user=request.user, is_archived=False)
+    tasks = Task.objects.filter(user=request.user, is_archived=False).order_by('-important', 'completed', '-deadline')
 
     # Поиск
     query = request.GET.get('q')

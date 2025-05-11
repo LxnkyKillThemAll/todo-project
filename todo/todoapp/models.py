@@ -8,6 +8,7 @@ class Task(models.Model):
     completed = models.BooleanField(default=False)
     image = models.ImageField(upload_to='task_images/', blank=True, null=True)
     deadline = models.DateTimeField(blank=True, null=True) 
+    important = models.BooleanField(default=False)
     is_archived = models.BooleanField(default=False)        
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -16,15 +16,19 @@
             <div class="list-group-item">
                 <h5>
                     {% if task.completed %}
-                        <s>{{ task.title }}</s>
+                        <s>{{ task.title }}
+                            {% if task.important %}
+                                <span class="badge bg-danger text-light ms-2">🔥 Важно!</span>
+                            {% endif %}
+                        </s>
                     {% else %}
                         {{ task.title }}
+                        {% if task.important %}
+                                <span class="badge bg-danger text-light ms-2">🔥 Важно!</span>
+                        {% endif %}
                         {% if task.is_urgent %}
                         <span class="badge bg-warning text-dark ms-2">⚠️ Скоро дедлайн</span>
                         {% endif %}
-                    {% endif %}
-                    {% if task.due_date %}
-                        <small class="text-muted"> — до {{ task.due_date|date:"d.m.Y H:i" }}</small>
                     {% endif %}
                 </h5>
                 {% if task.image %}

@@ -54,7 +54,13 @@ h1 {
 .search-box {
     margin-bottom: 20px;
 }
-
-.delete {
-    margin-left: 1050px;
+@media screen and (max-width: 2560px) {
+    .delete {
+        margin-left: 85%;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .delete {
+        margin-left: 75%;
+    }
 }
